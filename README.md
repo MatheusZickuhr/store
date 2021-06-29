@@ -32,7 +32,7 @@ mvn spring-boot:run
 
 ### Como cadastrar um pedido
 
- Basta fazer um request to tipo POST no endpoint /orders/ contendo um objeto json representando o pedido. Exemplo:
+ Basta fazer um request do tipo POST no endpoint /orders/ contendo um objeto json representando o pedido. Exemplo:
 ```
 {
     "price": 0,
@@ -44,8 +44,8 @@ mvn spring-boot:run
 
 ### Como atualizar um pedido
 
-Basta fazer um request to tipo POST no endpoint /orders/ contendo um objeto json representando o pedido.
-Como está sendo atualizado um pedido existente, deve ser enviando junto ao request o ID do pedido.
+Basta fazer um request do tipo POST no endpoint /orders/ contendo um objeto json representando o pedido.
+Como está sendo atualizado um pedido existente, deve ser enviado junto ao request o ID do pedido.
 Lembrando que, quando o pedido for finalizado (finished = true), a propiedade price será calculada
 automaticamente. Exemplo:
 ```
@@ -57,7 +57,7 @@ automaticamente. Exemplo:
 ```
 
 ### Como excluir um pedido
-Basta fazer um request to tipo DELETE no endpoint /orders/ contendo um objeto json representando o pedido.
+Basta fazer um request do tipo DELETE no endpoint /orders/ contendo um objeto json representando o pedido.
 Apenas o ID já é suficiente. Exemplo:
 
 ```
@@ -73,7 +73,7 @@ Basta fazer um request do tipo GET no endpoint /orders/. Também pode ser acessa
 
 ### Como cadastrar um produto
 
-Basta fazer um request to tipo POST no endpoint /products/ contendo um objeto json representando o produto. Exemplo:
+Basta fazer um request do tipo POST no endpoint /products/ contendo um objeto json representando o produto. Exemplo:
 
 ```
 {
@@ -86,8 +86,8 @@ Basta fazer um request to tipo POST no endpoint /products/ contendo um objeto js
 
 ### Como atualizar um produto
 
-Basta fazer um request to tipo POST no endpoint /products/ contendo um objeto json representando o produto.
-Como está sendo atualizado um produto existente, deve ser enviando junto ao request o ID do produto. Exemplo:
+Basta fazer um request do tipo POST no endpoint /products/ contendo um objeto json representando o produto.
+Como está sendo atualizado um produto existente, deve ser enviado junto ao request o ID do produto. Exemplo:
 
 ```
 {
@@ -101,7 +101,7 @@ Como está sendo atualizado um produto existente, deve ser enviando junto ao req
 
 ### Como excluir um produto
 
-Basta fazer um request to tipo DELETE no endpoint /products/ contendo um objeto json representando o produto.
+Basta fazer um request do tipo DELETE no endpoint /products/ contendo um objeto json representando o produto.
 Apenas o ID já é suficiente. Exemplo:
 
 ```
@@ -117,7 +117,7 @@ Basta fazer um request do tipo GET no endpoint /products/. Também pode ser aces
 
 ### Como cadastrar um item do pedido
 
-Basta fazer um request to tipo POST no endpoint /order_items/ contendo um objeto json representando o item do pedido.
+Basta fazer um request do tipo POST no endpoint /order_items/ contendo um objeto json representando o item do pedido.
 Exemplo:
 
 ```
@@ -129,8 +129,8 @@ Exemplo:
 
 ### Como atualizar um item do pedido
 
-Basta fazer um request to tipo POST no endpoint /order_items/ contendo um objeto json representando o item do pedido.
-como está sendo atualizado um item do pedido existente, deve ser enviando junto ao request o ID do item do pedido.
+Basta fazer um request do tipo POST no endpoint /order_items/ contendo um objeto json representando o item do pedido.
+como está sendo atualizado um item do pedido existente, deve ser enviado junto ao request o ID do item do pedido.
 Exemplo:
 
 ```
@@ -142,7 +142,7 @@ Exemplo:
 ```
 
 ### Como excluir um item do pedido
-Basta fazer um request to tipo DELETE no endpoint /order_items/ contendo um objeto json representando o item do pedido.
+Basta fazer um request do tipo DELETE no endpoint /order_items/ contendo um objeto json representando o item do pedido.
 Apenas o ID já é suficiente. Exemplo:
 ```
 {
