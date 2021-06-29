@@ -24,7 +24,6 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = StoreApplication.class)
@@ -51,6 +50,34 @@ public class StoreApplicationTests {
 	}
 
 	@Test
+	public void getProduct() throws Exception {
+		String uri = "/products/";
+
+		// create a product
+		Product product = new Product();
+		product.setName("Just a sample product");
+		product.setPrice(2.3f);
+		product.setService(false);
+		product.setEnabled(true);
+
+		String createdProductAsJson = mapToJson(product);
+		MvcResult mvcPostResult = mvc.perform(MockMvcRequestBuilders.post(uri)
+				.contentType(MediaType.APPLICATION_JSON_VALUE).content(createdProductAsJson)).andReturn();
+
+		int status = mvcPostResult.getResponse().getStatus();
+		assertEquals(201, status);
+
+		String content = mvcPostResult.getResponse().getContentAsString();
+		product = mapFromJson(content, Product.class);
+
+		// get the created product
+		MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri + "/" + product.getId())
+				.accept(MediaType.APPLICATION_JSON_VALUE)).andReturn();
+
+		assertEquals(200, mvcResult.getResponse().getStatus());
+	}
+
+	@Test
 	public void getProductsList() throws Exception {
 		String uri = "/products/";
 		MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)
@@ -60,8 +87,6 @@ public class StoreApplicationTests {
 		assertEquals(200, status);
 		String content = mvcResult.getResponse().getContentAsString();
 
-//		Product[] productlist = mapFromJson(content, Product[].class);
-//		assertTrue(productlist.length > 0);
 	}
 
 	@Test
@@ -220,6 +245,34 @@ public class StoreApplicationTests {
 	}
 
 	@Test
+	public void getOrder() throws Exception {
+		String uri = "/orders/";
+
+		//create a order
+		Order order = new Order();
+		order.setPrice(0.0f);
+		order.setDiscountRate(0.0f);
+		order.setFinished(false);
+
+		String createdOrderAsJson = mapToJson(order);
+		MvcResult mvcPostResult = mvc.perform(MockMvcRequestBuilders.post(uri)
+				.contentType(MediaType.APPLICATION_JSON_VALUE).content(createdOrderAsJson)).andReturn();
+
+		int status = mvcPostResult.getResponse().getStatus();
+		assertEquals(201, status);
+
+		String content = mvcPostResult.getResponse().getContentAsString();
+		order = mapFromJson(content, Order.class);
+
+		// get the created order
+		MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri + "/" + order.getId())
+				.accept(MediaType.APPLICATION_JSON_VALUE)).andReturn();
+
+		assertEquals(200, mvcResult.getResponse().getStatus());
+
+	}
+
+	@Test
 	public void getOrderList() throws  Exception {
 		String uri = "/orders/";
 		MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)
@@ -302,6 +355,81 @@ public class StoreApplicationTests {
 				.contentType(MediaType.APPLICATION_JSON_VALUE).content(deletedOrderAsJson)).andReturn();
 
 		assertEquals(200, mvcDeleteResult.getResponse().getStatus());
+	}
+
+	@Test
+	public void getOrderItem() throws Exception {
+
+		// create a order
+
+		Order order = new Order();
+		order.setPrice(0.0f);
+		order.setDiscountRate(0.0f);
+		order.setFinished(false);
+
+		{
+			String uri = "/orders/";
+
+			String inputJson = mapToJson(order);
+			MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri)
+					.contentType(MediaType.APPLICATION_JSON_VALUE).content(inputJson)).andReturn();
+
+			int status = mvcResult.getResponse().getStatus();
+			assertEquals(201, status);
+
+			String content = mvcResult.getResponse().getContentAsString();
+
+			order = mapFromJson(content, Order.class);
+		}
+
+		// create a product
+
+		Product product = new Product();
+		product.setName("Just a sample product");
+		product.setPrice(2.3f);
+		product.setService(false);
+		product.setEnabled(true);
+
+		{
+			String uri = "/products/";
+			String createdProductAsJson = mapToJson(product);
+			MvcResult mvcPostResult = mvc.perform(MockMvcRequestBuilders.post(uri)
+					.contentType(MediaType.APPLICATION_JSON_VALUE).content(createdProductAsJson)).andReturn();
+
+			int status = mvcPostResult.getResponse().getStatus();
+			assertEquals(201, status);
+
+			String content = mvcPostResult.getResponse().getContentAsString();
+			product = mapFromJson(content, Product.class);
+		}
+
+		// create a order item
+		OrderItem orderItem = new OrderItem();
+		orderItem.setOrder(order);
+		orderItem.setProduct(product);
+
+		String uri = "/order_items/";
+
+		{
+
+			String createdOrderItemAsJson = mapToJson(orderItem);
+			MvcResult mvcPostResult = mvc.perform(MockMvcRequestBuilders.post(uri)
+					.contentType(MediaType.APPLICATION_JSON_VALUE).content(createdOrderItemAsJson)).andReturn();
+
+			int status = mvcPostResult.getResponse().getStatus();
+			assertEquals(201, status);
+
+			String content = mvcPostResult.getResponse().getContentAsString();
+
+			orderItem = mapFromJson(content, OrderItem.class);
+		}
+		{
+
+			MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri + "/" + orderItem.getId())
+					.accept(MediaType.APPLICATION_JSON_VALUE)).andReturn();
+
+			assertEquals(200, mvcResult.getResponse().getStatus());
+		}
 	}
 
 	@Test

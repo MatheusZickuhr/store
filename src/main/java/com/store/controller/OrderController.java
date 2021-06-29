@@ -5,7 +5,6 @@ import com.store.model.OrderItem;
 import com.store.model.Product;
 import com.store.repository.OrderItemRepository;
 import com.store.repository.OrderRepository;
-import com.store.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -16,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("orders")
@@ -35,9 +35,13 @@ public class OrderController {
         return orderRepository.findAll();
     }
 
-    @RequestMapping(method = RequestMethod.GET, path = "/{pageNumber}")
-    public Iterable<Order> allOrdersPaginated(@PathVariable int pageNumber) {
-        final int pageSize = 5;
+    @RequestMapping(method = RequestMethod.GET, path = "/{id}")
+    public Object getOrder(@PathVariable("id") UUID id) {
+        return orderRepository.findById(id);
+    }
+
+    @RequestMapping(method = RequestMethod.GET, path = "/{pageNumber}/{pageSize}")
+    public Iterable<Order> allOrdersPaginated(@PathVariable("pageNumber") int pageNumber, @PathVariable("pageSize") int pageSize) {
 
         Pageable paging = PageRequest.of(pageNumber, pageSize);
         Page<Order> pagedResult = orderRepository.findAll(paging);

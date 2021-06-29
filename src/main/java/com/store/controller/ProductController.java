@@ -14,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("products")
@@ -33,10 +34,13 @@ public class ProductController {
         return productRepository.findAll();
     }
 
-    @RequestMapping(method = RequestMethod.GET, path = "/{pageNumber}")
-    public Iterable<Product> allProductsPaginated(@PathVariable int pageNumber) {
-        final int pageSize = 5;
+    @RequestMapping(method = RequestMethod.GET, path = "/{id}")
+    public Object getProduct(@PathVariable("id") UUID id) {
+        return productRepository.findById(id);
+    }
 
+    @RequestMapping(method = RequestMethod.GET, path = "/{pageNumber}/{pageSize}")
+    public Iterable<Product> allProductsPaginated(@PathVariable("pageNumber") int pageNumber, @PathVariable("pageSize") int pageSize) {
         Pageable paging = PageRequest.of(pageNumber, pageSize);
         Page<Product> pagedResult = productRepository.findAll(paging);
 

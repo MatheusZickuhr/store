@@ -68,8 +68,12 @@ Apenas o ID já é suficiente. Exemplo:
 
 ### Como listar os pedidos
 
-Basta fazer um request do tipo GET no endpoint /orders/. Também pode ser acessado com paginação usando /orders/0/
-(página 0).
+Basta fazer um request do tipo GET no endpoint /orders/. Também pode ser acessado com paginação usando /orders/0/5/
+(página 0 com tamanho 5).
+
+### Como ler um pedido
+
+Basta fazer um request do tipo GET no endpoint /orders/ junto ao ID do pedido (/orders/ID/).
 
 ### Como cadastrar um produto
 
@@ -112,8 +116,12 @@ Apenas o ID já é suficiente. Exemplo:
 
 ### Como listar os produtos
 
-Basta fazer um request do tipo GET no endpoint /products/. Também pode ser acessado com paginação usando /products/0/
-(página 0).
+Basta fazer um request do tipo GET no endpoint /products/. Também pode ser acessado com paginação usando /products/0/5/
+(página 0 com tamanho 5).
+
+### Como ler um produto
+
+Basta fazer um request do tipo GET no endpoint /products/ junto ao ID do produto (/products/ID/).
 
 ### Como cadastrar um item do pedido
 
@@ -152,5 +160,9 @@ Apenas o ID já é suficiente. Exemplo:
 
 ### Como listar os itens do pedido
 
-Basta fazer um request do tipo GET no endpoint /order_items/. Também pode ser acessado com paginação usando /order_items/0/
-(página 0).
+Basta fazer um request do tipo GET no endpoint /order_items/. Também pode ser acessado com paginação usando /order_items/0/5/
+(página 0 com tamanho 5).
+
+### Como ler um item do pedido
+
+Basta fazer um request do tipo GET no endpoint /order_items/ junto ao ID do item do pedido (/order_items/ID/).

@@ -15,6 +15,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.UUID;
+
 @RestController
 @RequestMapping("order_items")
 public class OrderItemController {
@@ -39,9 +41,14 @@ public class OrderItemController {
         return orderItemRepository.findAll();
     }
 
-    @RequestMapping(method = RequestMethod.GET, path = "/{pageNumber}")
-    public Iterable<OrderItem> allOrderItemsPaginated(@PathVariable int pageNumber) {
-        final int pageSize = 5;
+    @RequestMapping(method = RequestMethod.GET, path = "/{id}")
+    public Object getOrderItem(@PathVariable("id") UUID id) {
+        return orderItemRepository.findById(id);
+    }
+
+    @RequestMapping(method = RequestMethod.GET, path = "/{pageNumber}/{pageSize}")
+    public Iterable<OrderItem> allOrderItemsPaginated(@PathVariable("pageNumber") int pageNumber, @PathVariable("pageSize") int pageSize) {
+
 
         Pageable paging = PageRequest.of(pageNumber, pageSize);
         Page<OrderItem> pagedResult = orderItemRepository.findAll(paging);
